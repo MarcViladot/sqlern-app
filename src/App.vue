@@ -1,38 +1,43 @@
 <template>
   <v-app>
-    <v-toolbar app>
-      <v-toolbar-title class="headline text-uppercase">
-        <span>Vuetify</span>
-        <span class="font-weight-light">MATERIAL DESIGN</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Latest Release</span>
-      </v-btn>
-    </v-toolbar>
-
-    <v-content>
-      <HelloWorld/>
-    </v-content>
+    <div v-if="!logged">
+      <LoginLayout />
+    </div>
+    <div v-if="logged">
+      <Toolbar/>
+      <v-content>
+        <HelloWorld/>
+      </v-content>
+    </div>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
+import HelloWorld from "./components/HelloWorld";
+import LoginLayout from "./components/Login/LoginLayout.vue";
+import Toolbar from "./components/Toolbar.vue";
+import { mapState } from "vuex";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
+    HelloWorld,
+    LoginLayout,
+    Toolbar
   },
-  data () {
+  created() {
+    this.$store.dispatch("user/setCurrentUser");
+  },
+  computed: {
+    ...mapState({
+      logged: state => state.user.isLoggedIn,
+      user: state => state.user.currentUser
+    })
+  },
+  data() {
     return {
-      //
-    }
+
+    };
   }
-}
+};
 </script>
