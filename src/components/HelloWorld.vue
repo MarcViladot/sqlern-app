@@ -1,17 +1,25 @@
 <template>
-  <div class="col-lg-12">
-    <br>
-    <NewModelForm />
+  <div>
+    <v-btn color="primary" v-on:click="showAlert">Alert</v-btn>
   </div>
 </template>
 
 <script>
 import NewExerciseForm from "./exercises/NewExerciseForm.vue";
+import AnswerExerciseForm from "./exercises/AnswerExerciseForm.vue";
 import NewModelForm from "./conceptualmodels/NewModelForm.vue";
+import NewQuizzForm from "./quizzs/NewQuizzForm.vue";
 export default {
   components: {
     NewExerciseForm,
-    NewModelForm
+    NewModelForm,
+    AnswerExerciseForm,
+    NewQuizzForm
+  },
+  methods: {
+    showAlert() {
+      this.$swal("NSA#WE", "Your code", "success");
+    }
   }
 };
 </script>

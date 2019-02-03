@@ -6,7 +6,10 @@
     <div v-if="logged && user">
       <Toolbar/>
       <v-content>
-        <HelloWorld/>
+        <div class="col-lg-12">
+          <br>
+          <router-view></router-view>
+        </div>
       </v-content>
     </div>
   </v-app>

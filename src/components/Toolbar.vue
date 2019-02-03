@@ -3,18 +3,15 @@
     <v-toolbar-title class="headline text-uppercase">
       <span class="font-weight-light">Sqlern</span>
     </v-toolbar-title>
+    <v-btn flat>Search Quizzs</v-btn>
     <v-spacer></v-spacer>
-    <v-menu bottom origin="center center" transition="scale-transition" v-if="isTeacher">
-      <v-btn flat slot="activator">
+    <v-menu bottom origin="center center" transition="scale-transition">
+      <v-btn flat slot="activator" id="btn-menu">
         <span class="mr-2">{{user.name}} {{user.last_name}}</span>
         <v-icon>keyboard_arrow_down</v-icon>
       </v-btn>
       <v-list>
-        <v-list-tile v-on:click="logout">My Profile</v-list-tile>
-        <v-divider></v-divider>
-        <v-list-tile v-on:click="logout">Exercices</v-list-tile>
-         <v-divider></v-divider>
-        <v-list-tile v-on:click="logout">Conceptual Models</v-list-tile>
+        <v-list-tile to="/profile">My Profile</v-list-tile>
         <v-divider></v-divider>
         <v-list-tile v-on:click="logout">Logout</v-list-tile>
       </v-list>
@@ -42,5 +39,10 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+#btn-menu {
+  &:focus {
+    outline: 0 !important;
+  }
+}
 </style>

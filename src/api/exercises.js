@@ -13,5 +13,11 @@ export default {
             .then(r => {
                 return r.data
             })
+    },
+    getSet(topics, limit) {
+        return API.get('exercises/set/' + limit + '/' + topics)
+            .then(r => {
+                return r.data
+            })
     }
 }

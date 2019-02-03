@@ -50,7 +50,7 @@ export default {
         models
           .create({ url: res.data.secure_url, name: this.name })
           .then(res => {
-            console.log(res);
+            this.$store.dispatch("user/setCurrentUser");
           })
           .catch(error => console.log(error.response));
       });

@@ -5,8 +5,7 @@ import store from './store'
 import router from './router'
 import Vuetify from 'vuetify'
 import VueCodemirror from 'vue-codemirror'
-
-
+import VueSweetalert2 from 'vue-sweetalert2';
 
 Vue.config.productionTip = false
 
@@ -22,6 +21,11 @@ Vue.use(router)
 
 import 'codemirror/lib/codemirror.css'
 Vue.use(VueCodemirror)
+
+Vue.use(VueSweetalert2, {
+  confirmButtonColor: '#009688',
+  cancelButtonColor: '#cacaca'
+})
 
 new Vue({
   store,
