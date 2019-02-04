@@ -82,13 +82,11 @@ export default {
   methods: {
     create() {
       const data = {
-        data: {
-          solution: this.solution,
-          statement: this.statement,
-          conceptualmodel_id: this.model,
-          public: !this.private
-        },
-        topics: this.checkedTopics
+        solution: this.solution,
+        statement: this.statement,
+        conceptualmodel_id: this.model,
+        public: !this.private,
+        topics: this.checkedTopics.join("+")
       };
       this.$store.dispatch("exercise/create", data);
     }

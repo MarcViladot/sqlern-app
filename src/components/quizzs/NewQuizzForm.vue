@@ -175,12 +175,10 @@ export default {
     },
     createQuizz() {
       const data = {
-        data: {
-          name: this.name,
-          public: !this.private,
-          topics: this.checkedTopics
-        },
-        exercises: this.addedsExercices
+        name: this.name,
+        public: !this.private,
+        topics: this.checkedTopics,
+        exercises: JSON.stringify(this.addedsExercices)
       };
       this.$store.dispatch("quizz/create", data);
     }

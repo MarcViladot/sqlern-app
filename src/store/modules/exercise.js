@@ -8,19 +8,11 @@ const getters = {
 const actions = {
     create({ commit, dispatch }, data) {
         exercises
-            .create(data.data)
+            .create(data)
             .then(res => {
-                dispatch("addTopics", {topics: data.topics, id: res.id});
-            })
-            .catch(error => console.log(error));
-    },
-    addTopics({ commit }, data) {
-        data.topics.forEach(topic => {
-            exercises.addTopic({ exercise_id: data.id, topic_id: topic }).then(res => {
                 console.log(res);
             })
-                .catch(error => console.log(error.response));
-        });
+            .catch(error => console.log(error));
     }
 }
 

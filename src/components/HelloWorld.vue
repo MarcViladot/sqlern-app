@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn color="primary" v-on:click="showAlert">Alert</v-btn>
+    <NewExerciseForm />
   </div>
 </template>
 
