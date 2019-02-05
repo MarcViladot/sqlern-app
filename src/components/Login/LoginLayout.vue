@@ -1,7 +1,7 @@
 <template>
   <div class="background">
     <v-card class="login-card">
-      <h2>Sqlern</h2>
+      <h2>Sqlearn</h2>
       <div class="form">
         <Signin v-if="!signup"/>
         <Signup v-if="signup"/>

@@ -8,10 +8,22 @@ export default {
                 return r.data
             })
     },
-    createQuizzExercise(data) {
-        return API.post('quizzexercises', data)
+    getByTopics(topics) {
+        return API.get('quizzs/set/' + topics)
             .then(r => {
                 return r.data
             })
+    },
+    upvote(quizzId) {
+        return API.post('quizzs/upvote/' + quizzId, null)
+        .then(r => {
+            return r.data
+        })
+    },
+    downvote(quizzId) {
+        return API.delete('quizzs/downvote/' + quizzId)
+        .then(r => {
+            return r.data
+        })
     }
 }

@@ -1,7 +1,7 @@
 <template>
   <v-toolbar dense>
     <v-toolbar-title class="headline text-uppercase">
-      <span class="font-weight-light">Sqlern</span>
+      <span class="font-weight-light">Sqlearn</span>
     </v-toolbar-title>
     <span class="buttons">
       <v-btn flat to="/search/quizzs">Search Quizzs</v-btn>

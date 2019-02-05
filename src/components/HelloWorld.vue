@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NewExerciseForm />
+    <NewQuizzForm/>
   </div>
 </template>
 

@@ -5,7 +5,10 @@ const API = axios.create({
     headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
-        'Authorization': localStorage.getItem('currentUserToken')
+        'Authorization': localStorage.getItem('currentUserToken'),
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization'
     }
 });
 

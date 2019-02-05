@@ -4,10 +4,13 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import Vuetify from 'vuetify'
+import moment from 'moment'
 import VueCodemirror from 'vue-codemirror'
 import VueSweetalert2 from 'vue-sweetalert2';
 
 Vue.config.productionTip = false
+
+Vue.prototype.moment = moment
 
 Vue.use(Vuetify, {
   theme: {
