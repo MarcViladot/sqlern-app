@@ -50,4 +50,7 @@ hr {
 .card {
   padding: 10px;
 }
+.pointer {
+  cursor: pointer;
+}
 </style>
