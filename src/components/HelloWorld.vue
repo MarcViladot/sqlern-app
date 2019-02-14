@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <NewQuizzForm/>
+  <div v-if="exercises[0]">
+    <AnswerExerciseForm :exercise="exercises[0]"></AnswerExerciseForm>
   </div>
 </template>
 
@@ -9,6 +9,7 @@ import NewExerciseForm from "./exercises/NewExerciseForm.vue";
 import AnswerExerciseForm from "./exercises/AnswerExerciseForm.vue";
 import NewModelForm from "./conceptualmodels/NewModelForm.vue";
 import NewQuizzForm from "./quizzs/NewQuizzForm.vue";
+import exercises from "../api/exercises";
 export default {
   components: {
     NewExerciseForm,
@@ -16,10 +17,19 @@ export default {
     AnswerExerciseForm,
     NewQuizzForm
   },
-  methods: {
-    showAlert() {
-      this.$swal("NSA#WE", "Your code", "success");
-    }
+  data() {
+    return {
+      exercises: []
+    };
+  },
+  methods: {},
+  created() {
+    exercises
+      .getSet("Joins", 25)
+      .then(res => {
+        this.exercises = res;
+      })
+      .catch(error => console.log(error.response));
   }
 };
 </script>

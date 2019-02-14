@@ -47,4 +47,7 @@ export default {
 hr {
   margin: 0;
 }
+.card {
+  padding: 10px;
+}
 </style>

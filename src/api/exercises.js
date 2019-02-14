@@ -19,5 +19,11 @@ export default {
             .then(r => {
                 return r.data
             })
+    },
+    checkExercise(data){
+        return API.post('answeredexercises', data)
+            .then(r => {
+                return r.data
+            })
     }
 }

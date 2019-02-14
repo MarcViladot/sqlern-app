@@ -1,19 +1,34 @@
 <template>
   <v-card class="card">
-    <h6>{{quizz.name}}</h6>
-    <div></div>
-    <span class="cursor-text">Preview</span>
-    <div>
-      <span>{{quizz.votes}} votes &nbsp;</span>
-      <span v-if="!quizz.upvoted" class="cursor-text" v-on:click="upvote">Upvote
+    <div class="section">
+      <h5 class="float-left">{{quizz.name}}</h5>
+      <span v-if="!quizz.upvoted" class="cursor-text float-right" v-on:click="upvote">
+        <span>Upvote</span>
         <v-icon small>keyboard_arrow_up</v-icon>
       </span>
-      <span v-else class="cursor-text" v-on:click="undo">Undo
+      <span v-else class="cursor-text float-right" v-on:click="undo">
+        <span>Undo</span>
         <v-icon small>keyboard_arrow_down</v-icon>
       </span>
     </div>
+
+    <router-link class="cursor-text section" :to="'/quizzs/' + quizz.id">Preview</router-link>
+
+    <div class="section">
+      <b>Topics:&nbsp;</b>
+      <span v-for="(topic, index) in quizz.topics" :key="topic.id">
+        <span>{{topic.name}}</span>
+        <span v-if="index+1 < quizz.topics.length">,&nbsp;</span>
+        <span v-else>.</span>
+      </span>
+    </div>
+
     <div class="footer">
+      <span>
+        <b>{{quizz.votes}}</b> votes
+      </span>
       <span
+        id="date"
         class="float-right"
       >Created at {{moment(quizz.created_at).format('DD-MM-YYYY')}} by {{quizz.user.name}} {{quizz.user.last_name}}</span>
     </div>
@@ -58,7 +73,12 @@ export default {
 }
 .footer {
   font-size: 0.8em;
-  color: #7a7a7a;
+  #date {
+    color: #7a7a7a;
+  }
+}
+.section {
+  margin-bottom: 10px;
 }
 .cursor-text {
   color: black;
