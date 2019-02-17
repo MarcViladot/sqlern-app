@@ -55,5 +55,11 @@ export default {
             .then(r => {
                 return r.data
             })
+    },
+    delete(id) {
+        return API.delete('quizzs/' + id)
+            .then(r => {
+                return r.data
+            })
     }
 }

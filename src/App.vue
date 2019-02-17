@@ -17,7 +17,7 @@
 
 <script>
 import HelloWorld from "./components/HelloWorld";
-import LoginLayout from "./components/Login/LoginLayout.vue";
+import LoginLayout from "./components/login/LoginLayout.vue";
 import Toolbar from "./components/Toolbar.vue";
 import { mapState } from "vuex";
 export default {
@@ -52,5 +52,13 @@ hr {
 }
 .pointer {
   cursor: pointer;
+}
+
+.table-card {
+  padding: 0;
+  h5 {
+    padding-top: 10px;
+    padding-left: 10px;
+  }
 }
 </style>

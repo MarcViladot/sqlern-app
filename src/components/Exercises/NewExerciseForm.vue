@@ -3,12 +3,10 @@
     <h3>Create Exercise</h3>
     <div class="row">
       <div class="col">
-        <label>Statement</label>
         <v-textarea label="Exercise Statement" v-model="statement" rows="1"></v-textarea>
       </div>
 
       <div id="conceptual" class="col">
-        <label>Conceptual Model</label>
         <v-select
           :items="user.conceptualmodels"
           label="Conceptual Model"

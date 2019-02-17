@@ -2,14 +2,14 @@ import API from './api'
 
 export default {
 
-    create(data) {
-        return API.post('conceptualmodels', data)
+    create(query) {
+        return API.post('create-tables', { sql_query: query })
             .then(r => {
                 return r.data
             })
     },
-    delete(id) {
-        return API.delete('conceptualmodels/' + id)
+    getTables() {
+        return API.get('show-tables')
             .then(r => {
                 return r.data
             })

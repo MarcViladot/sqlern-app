@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h5>New Conceptual Model</h5>
     <div class="row">
       <div class="col">
         <v-text-field label="Conceptual Model name" v-model="name"></v-text-field>
@@ -7,13 +8,13 @@
       <div class="col">
         <input
           type="file"
-          class="form-control"
+          class="form-control input"
           accept="image/*"
           v-on:change="changeFile($event.target.files)"
         >
       </div>
     </div>
-    <div>
+    <div class="text-xs-right">
       <v-btn color="primary" v-on:click="upload">Upload</v-btn>
     </div>
   </div>
@@ -51,6 +52,7 @@ export default {
           .create({ url: res.data.secure_url, name: this.name })
           .then(res => {
             this.$store.dispatch("user/setCurrentUser");
+            this.$emit("uploaded");
           })
           .catch(error => console.log(error.response));
       });
@@ -66,4 +68,7 @@ export default {
 </script>
 
 <style lang="scss">
+.input {
+  margin-top: 15px;
+}
 </style>

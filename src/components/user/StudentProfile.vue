@@ -2,12 +2,14 @@
   <div v-if="user">
     <div class="row">
       <div class="col">
-        <v-card class="card">
+        <v-card class="table-card">
           <h5>My Answered Quizzs</h5>
           <v-data-table :headers="headersQuizzs" :items="user.quizzs" class="elevation-1">
             <template slot="items" slot-scope="props">
               <td class="pointer" v-on:click="goToQuizz(props.item.id)">{{ props.item.gquizz.code }}</td>
-              <td>{{ props.item.note }}/{{props.item.length}}</td>
+              <td
+                v-bind:style="[passed(props.item) ? {color: 'green'} : {color: 'red'}]"
+              >{{props.item.note }}/{{props.item.length}}</td>
               <td>{{ props.item.gquizz.user.name }} {{ props.item.gquizz.user.last_name }}</td>
               <td>{{ moment(props.item.created_at).format('DD-MM-YYYY hh:mm') }}</td>
             </template>
@@ -16,7 +18,7 @@
       </div>
 
       <div class="col">
-        <v-card class="card col">
+        <v-card class="table-card">
           <h5>My Answered Exercises</h5>
           <v-data-table :headers="headersExercises" :items="user.exercises" class="elevation-1">
             <template slot="items" slot-scope="props">
@@ -60,6 +62,9 @@ export default {
   methods: {
     goToQuizz(id) {
       this.$router.push("/quizzs/answered/" + id);
+    },
+    passed(quizz) {
+      return (quizz.note / quizz.length) * 10 >= 5;
     }
   }
 };

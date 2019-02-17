@@ -30,7 +30,20 @@ Vue.use(VueSweetalert2, {
   cancelButtonColor: '#cacaca'
 })
 
+var mixin = {
+  methods: {
+    error() {
+      this.$swal({
+        title: "Ops!",
+        text: "An unexpected error has occurred",
+        type: "error"
+      })
+    }
+  }
+}
+
 new Vue({
+  mixins: [mixin],
   store,
   router,
   components: { App },

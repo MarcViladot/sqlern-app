@@ -11,13 +11,15 @@
         required
         @click:append="show = !show"
       ></v-text-field>
+      <v-alert :value="true" color="error" icon="warning" outline v-if="error">Incorrect email or password</v-alert>
     </v-form>
-     <v-btn color="primary" v-on:click="login">Sign in</v-btn>
+    <v-btn color="primary" v-on:click="login">Sign in</v-btn>
     <span>or</span>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "signin",
   methods: {
@@ -27,6 +29,11 @@ export default {
         password: this.password
       });
     }
+  },
+  computed: {
+    ...mapState({
+      error: state => state.user.error
+    })
   },
   data: () => ({
     valid: false,

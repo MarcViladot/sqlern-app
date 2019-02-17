@@ -3,20 +3,24 @@ import API from '../../api/api'
 
 const state = {
     isLoggedIn: !!localStorage.getItem('currentUserToken'),
-    currentUser: undefined
+    currentUser: undefined,
+    error: false
 }
 
 const getters = {
 }
 
 const actions = {
-    login({ dispatch }, credentials) {
+    login({ dispatch, commit }, credentials) {
         users.login(credentials).then(res => {
             localStorage.setItem('currentUserToken', res.auth_token)
             API.defaults.headers['Authorization'] = res.auth_token;
             dispatch('setCurrentUser')
+            commit('setError', false)
         })
-            .catch(error => console.log(error))
+            .catch(error => {
+                commit('setError', true)
+            })
     },
     logout({ commit }) {
         localStorage.removeItem('currentUserToken')
@@ -39,6 +43,9 @@ const mutations = {
     logout(state) {
         state.isLoggedIn = false;
         state.currentUser = undefined;
+    },
+    setError(state, bool) {
+        state.error = bool;
     }
 }
 
