@@ -1,7 +1,5 @@
 <template>
-  <div v-if="exercises[0]">
-    <AnswerExerciseForm :exercise="exercises[0]"></AnswerExerciseForm>
-  </div>
+  <div></div>
 </template>
 
 <script>
@@ -24,12 +22,6 @@ export default {
   },
   methods: {},
   created() {
-    exercises
-      .getSet("Joins", 25)
-      .then(res => {
-        this.exercises = res;
-      })
-      .catch(error => console.log(error.response));
   }
 };
 </script>

@@ -7,7 +7,9 @@ import SearchQuizzs from '../components/search/SearchQuizzs.vue'
 import QuizzDetail from '../components/quizzs/QuizzDetail.vue'
 import AnswerQuizzForm from '../components/quizzs/AnswerQuizzForm.vue'
 import AnsweredQuizz from '../components/quizzs/AnsweredQuizz.vue'
+import EditQuizzForm from '../components/quizzs/EditQuizzForm.vue'
 import NewExerciseForm from '../components/exercises/NewExerciseForm.vue'
+import ExercisesSet from '../components/exercises/ExercisesSet.vue'
 import NewQuizzForm from '../components/quizzs/NewQuizzForm.vue'
 import NewModelForm from '../components/conceptualmodels/NewModelForm.vue'
 import NewTablesForm from '../components/tables/NewTablesForm.vue'
@@ -25,8 +27,10 @@ export default new VueRouter({
     { path: '/quizzs/:id', component: QuizzDetail },
     { path: '/quizzs/test/:code', component: AnswerQuizzForm },
     { path: '/quizzs/answered/:id', component: AnsweredQuizz },
+    { path: '/quizzs/edit/:id', component: EditQuizzForm },
 
     { path: '/exercises/new', component: NewExerciseForm },
+    { path: '/exercises/set', component: ExercisesSet },
 
     { path: '/tables/new', component: NewTablesForm }
   ]

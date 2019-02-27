@@ -1,11 +1,33 @@
 <template>
   <div v-if="answeredQuizz">
-    <h5>Answered Quizz {{answeredQuizz.id}}</h5>
+    <div>
+      <v-card class="card">
+        <h4>Quizz {{answeredQuizz.id}}</h4>
+        <div>
+          <p>
+            <b>Number of exercises:</b>
+            {{answeredQuizz.exercises.length}}
+          </p>
+          <p>
+            <b>Correct exercises:</b>
+            {{answeredQuizz.note}}
+          </p>
+          <div class="float-left">
+            <b>Note:</b>&nbsp;
+            <span
+              v-bind:style="[calculateNote() >= 5 ? {color: 'green'} : {color: 'red'}]"
+            >{{calculateNote()}}/10</span>
+          </div>
+          <div class="float-right">
+            <small
+              id="date"
+            >Answered at {{moment(answeredQuizz.created_at).format('DD-MM-YYYY hh:mm:ss')}}</small>
+          </div>
+        </div>
+      </v-card>
+    </div>
     <div v-for="exercise in answeredQuizz.exercises" :key="exercise.id">
       <AnsweredExerciseCard :exercise="exercise"/>
-    </div>
-    <div>
-      <p>nota total -> {{((this.answeredQuizz.note / this.answeredQuizz.exercises.length) * 10)}}</p>
     </div>
   </div>
 </template>
@@ -42,5 +64,8 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
+#date {
+  color: gray;
+}
 </style>

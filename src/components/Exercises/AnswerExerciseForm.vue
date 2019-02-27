@@ -23,8 +23,9 @@
     <div>
       <v-card class="editor">
         <p>
+          <v-icon small>code</v-icon>&nbsp;
           <b>Code Editor</b>
-          <span class="float-right" v-if="exercise.comments.length > 0 && !quizz">
+          <span class="float-right" v-if="exercise.comments.length > 0 && !quizz && !hint">
             <v-tooltip bottom>
               <template #activator="data">
                 <v-icon
@@ -57,6 +58,7 @@
         <span v-if="correct">correct</span>
         <span v-else>false - {{exercise.solution}}</span>
       </span>
+      <v-btn color="secondary" class="float-right" v-on:click="next" v-if="answered">Next</v-btn>
       <v-btn
         color="primary"
         class="float-right"
@@ -121,6 +123,9 @@ export default {
         solution: this.solution,
         exercise_id: this.exercise.id
       });
+    },
+    next() {
+      this.$emit("next");
     }
   }
 };

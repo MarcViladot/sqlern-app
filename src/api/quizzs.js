@@ -8,6 +8,12 @@ export default {
                 return r.data
             })
     },
+    update(id, data) {
+        return API.put('quizzs/' + id, data)
+            .then(r => {
+                return r.data
+            })
+    },
     getByTopics(topics) {
         return API.get('quizzs/set/' + topics)
             .then(r => {

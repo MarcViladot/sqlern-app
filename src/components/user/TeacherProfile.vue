@@ -23,6 +23,10 @@
       </v-card>
     </v-dialog>
 
+    <v-dialog v-if="exercise" v-model="dialogExercise" width="auto"> 
+      <EditExerciseForm :exercise="exercise" />
+    </v-dialog>
+
     <v-dialog v-model="dialogNewModel" width="500">
       <v-card class="dialog">
         <NewModelForm v-on:uploaded="dialogNewModel = false"/>
@@ -38,12 +42,18 @@
           </v-btn>
           <v-data-table :headers="headersQuizzs" :items="user.quizzs" class="elevation-1">
             <template slot="items" slot-scope="props">
-              <td :to="'/quizzs/' + props.item.id" class="cursor">{{ props.item.id }}</td>
-              <td>{{ props.item.name }}</td>
+              <td>
+                <span :to="'/quizzs/' + props.item.id" class="pointer">{{ props.item.name }}</span>
+              </td>
               <td>{{ props.item.public }}</td>
               <td>{{ props.item.gtimes }}</td>
               <td>{{ moment(props.item.created_at).format('DD-MM-YYYY hh:mm') }}</td>
-              <td class="pointer">
+              <td>
+                <v-btn flat icon :to="'/quizzs/edit/' + props.item.id">
+                  <v-icon>tune</v-icon>
+                </v-btn>
+              </td>
+              <td>
                 <v-btn flat icon v-on:click="deleteQuizz(props.item.id)">
                   <v-icon>delete_outline</v-icon>
                 </v-btn>
@@ -84,6 +94,11 @@
                   <span v-if="index+1 < props.item.topics.length">,&nbsp;</span>
                 </span>
               </td>
+              <td>
+                <v-btn flat icon v-on:click="editExercise(props.item)">
+                  <v-icon>tune</v-icon>
+                </v-btn>
+              </td>
               <td>{{ moment(props.item.created_at).format('DD-MM-YYYY hh:mm') }}</td>
             </template>
           </v-data-table>
@@ -101,7 +116,7 @@
               <td>{{ props.item.name }}</td>
               <td class="pointer" v-on:click="setModel(props.item.url)">Preview</td>
               <td>{{ moment(props.item.created_at).format('DD-MM-YYYY hh:mm') }}</td>
-              <td class="pointer">
+              <td>
                 <v-btn flat icon v-on:click="deleteModel(props.item.id)">
                   <v-icon>delete_outline</v-icon>
                 </v-btn>
@@ -122,11 +137,13 @@
 import models from "../../api/models";
 import quizzs from "../../api/quizzs";
 import NewModelForm from "../conceptualmodels/NewModelForm.vue";
+import EditExerciseForm from "../exercises/EditExerciseForm.vue";
 import { mapState } from "vuex";
 export default {
   name: "TeacherProfile",
   components: {
-    NewModelForm
+    NewModelForm,
+    EditExerciseForm
   },
   computed: {
     ...mapState({
@@ -136,11 +153,11 @@ export default {
   data() {
     return {
       headersQuizzs: [
-        { text: "Quizz ID", sortable: false },
         { text: "Name", sortable: false },
         { text: "Public", sortable: false },
         { text: "Times Generated", value: "gtimes" },
         { text: "Created at", value: "created_at" },
+        { text: "Edit", sortable: false },
         { text: "Remove", sortable: false }
       ],
       headersGQuizzs: [
@@ -152,6 +169,7 @@ export default {
       headersExercises: [
         { text: "ID", sortable: false },
         { text: "Topics", sortable: false },
+        { text: "Edit", sortable: false },
         { text: "Created at", value: "created_at" }
       ],
       headersModels: [
@@ -164,7 +182,8 @@ export default {
       url: "",
       dialog: false,
       dialogM: false,
-      dialogNewModel: false
+      dialogNewModel: false,
+      dialogExercise: false
     };
   },
   methods: {
@@ -175,6 +194,10 @@ export default {
     setModel(url) {
       this.dialogM = true;
       this.url = url;
+    },
+    editExercise(exercise){
+      this.exercise = exercise;
+      this.dialogExercise = true;
     },
     deleteModel(id) {
       this.$swal({

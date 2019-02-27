@@ -2,11 +2,14 @@
   <div>
     <v-toolbar dense color="primary">
       <v-toolbar-title class="headline text-uppercase">
-        <span class="font-weight-light">Sqlearn</span>
+        <span class="font-weight-light pointer">Sqlearn</span>
       </v-toolbar-title>
       <span class="buttons" v-if="isTeacher()">
         <v-btn flat to="/search/quizzs">Search Quizzs</v-btn>
         <v-btn flat to="/search/exercises">Search Exercises</v-btn>
+      </span>
+      <span class="buttons" v-else>
+        <v-btn flat v-on:click="dialogExercises = true">Practice exercises</v-btn>
       </span>
       <v-spacer></v-spacer>
       <span v-if="!isTeacher()">
@@ -44,16 +47,24 @@
         <NewModelForm v-on:uploaded="dialog = false"/>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="dialogExercises" width="500">
+      <v-card class="cardd">
+        <SelectionMode v-on:selected="dialogExercises = false"/>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
 import NewModelForm from "./conceptualmodels/NewModelForm.vue";
+import SelectionMode from "./exercises/SelectionMode.vue";
 export default {
   name: "Toolbar",
   components: {
-    NewModelForm
+    NewModelForm,
+    SelectionMode
   },
   computed: {
     ...mapState({
@@ -74,7 +85,8 @@ export default {
   data() {
     return {
       code: "",
-      dialog: false
+      dialog: false,
+      dialogExercises: false
     };
   }
 };
@@ -99,5 +111,10 @@ a {
 .v-toolbar--dense .v-input__control {
   min-height: 38px !important;
   width: 150px !important;
+}
+.cardd {
+  margin: 0;
+  padding: 10px;
+  min-height: 175px;
 }
 </style>

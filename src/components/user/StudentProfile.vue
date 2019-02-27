@@ -23,7 +23,7 @@
           <v-data-table :headers="headersExercises" :items="user.exercises" class="elevation-1">
             <template slot="items" slot-scope="props">
               <td class="pointer">{{ props.item.id }}</td>
-              <td>{{ props.item.correct ? 'Yes' : 'No' }}</td>
+              <td v-bind:style="[props.item.correct ? {color: 'green'} : {color: 'red'}]">{{ props.item.correct ? 'Yes' : 'No' }}</td>
               <td>{{ props.item.exercise.user.name }} {{ props.item.exercise.user.last_name }}</td>
               <td>{{ moment(props.item.created_at).format('DD-MM-YYYY HH:MM') }}</td>
             </template>
@@ -48,7 +48,7 @@ export default {
       ],
       headersExercises: [
         { text: "ID", sortable: false },
-        { text: "Correct?", sortable: false },
+        { text: "Correct?", value: "correct" },
         { text: "Made by", sortable: false },
         { text: "Answered at", value: "created_at" }
       ]
