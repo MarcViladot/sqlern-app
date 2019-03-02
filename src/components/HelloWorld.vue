@@ -1,27 +1,33 @@
 <template>
-  <div></div>
+  <div v-if="user">
+    <div v-if="!isTeacher()">
+      <HomeStudent />
+    </div>
+    <div v-else>
+      Profe
+    </div>
+  </div>
 </template>
 
 <script>
-import NewExerciseForm from "./exercises/NewExerciseForm.vue";
-import AnswerExerciseForm from "./exercises/AnswerExerciseForm.vue";
-import NewModelForm from "./conceptualmodels/NewModelForm.vue";
-import NewQuizzForm from "./quizzs/NewQuizzForm.vue";
-import exercises from "../api/exercises";
+import { mapState } from "vuex";
+import HomeStudent from "./user/HomeStudent.vue";
 export default {
-  components: {
-    NewExerciseForm,
-    NewModelForm,
-    AnswerExerciseForm,
-    NewQuizzForm
-  },
+  components: { HomeStudent },
   data() {
     return {
       exercises: []
     };
   },
-  methods: {},
-  created() {
+  methods: {
+    isTeacher() {
+      return this.user.role === 1;
+    }
+  },
+  computed: {
+    ...mapState({
+      user: state => state.user.currentUser
+    })
   }
 };
 </script>
