@@ -1,24 +1,37 @@
 <template>
   <div v-if="quizz">
-    <h6>{{quizz.name}}</h6>
-
-    <label>Exercises in this Quizz</label>
-    <div v-for="exercise in quizz.exercises" :key="exercise.id">
+    <div>
       <v-card class="card">
+        <h4>
+          Quizz {{quizz.name}} - By
+          <b>{{quizz.user.last_name}}, {{quizz.user.name}}</b>
+        </h4>
         <div>
-          <p>
-            <b>Statement:</b>
-            {{exercise.statement}}
-          </p>
-        </div>
-        <div>
-          <p>
-            <b>Solution:</b>
-            {{exercise.solution}}
-          </p>
+          <div style="margin-bottom: 5px">
+            <b>Number of exercises:</b>
+            {{quizz.exercises.length}}
+          </div>
+          <div>
+            <b>Topics:&nbsp;</b>
+            <span v-for="(topic, index) in quizz.topics" :key="topic.id">
+              <span>{{topic.name}}</span>
+              <span v-if="index+1 < quizz.topics.length">,&nbsp;</span>
+              <span v-else>.</span>
+            </span>
+          </div>
+          <div class="float-right">
+            <small id="date">Created at {{moment(quizz.created_at).format('DD-MM-YYYY hh:mm:ss')}}</small>
+          </div>
         </div>
       </v-card>
     </div>
+
+    <v-expansion-panel>
+      <v-expansion-panel-content v-for="(exercise, index) in quizz.exercises" :key="index">
+        <div slot="header">Exercise {{index+1}}</div>
+        <ExerciseDisplay :exercise="exercise" style="margin-left: 15px" />
+      </v-expansion-panel-content>
+    </v-expansion-panel>
 
     <div>
       <v-btn
@@ -33,8 +46,12 @@
 
 <script>
 import quizzs from "../../api/quizzs";
+import ExerciseDisplay from "../exercises/ExerciseDisplay.vue";
 export default {
   name: "QuizzDetail",
+  components: {
+    ExerciseDisplay
+  },
   data() {
     return {
       id: this.$route.params.id,
@@ -54,7 +71,7 @@ export default {
       quizzs
         .generateQuizz(this.id)
         .then(res => {
-          this.$swal(res.code, "Your code", "success");
+          this.$swal(res.code, "Is your code for this Quizz", "success");
         })
         .catch(error => console.log(error.response));
     }
@@ -66,5 +83,8 @@ export default {
 .card {
   padding: 10px;
   margin-bottom: 15px;
+}
+#date {
+  color: gray;
 }
 </style>

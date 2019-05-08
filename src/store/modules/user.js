@@ -8,6 +8,9 @@ const state = {
 }
 
 const getters = {
+    getCurrentUser: (state) => {
+        return state.currentUser
+    }
 }
 
 const actions = {
@@ -28,10 +31,13 @@ const actions = {
         commit('logout')
     },
     setCurrentUser({ commit }) {
-        users.getCurrentUser().then(user => {
-            commit('login', user)
+        return new Promise((resolve, reject) => {
+            users.getCurrentUser().then(user => {
+                commit('login', user)
+                resolve()
+            })
+                .catch(error => console.log(error.response))
         })
-            .catch(error => console.log(error.response))
     }
 }
 

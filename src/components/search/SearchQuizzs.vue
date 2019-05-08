@@ -1,29 +1,37 @@
 <template>
   <div>
     <div>
-      <v-expansion-panel>
-        <v-expansion-panel-content>
-          <div slot="header">Topics</div>
-          <v-card>
-            <v-card-text>
-              <div class="container">
-                <div v-for="(topic, index) in topics" :key="topic.id">
-                  <v-checkbox
-                    style="height: min-content"
-                    :label="topic.name"
-                    color="primary"
-                    v-model="checkedTopics[index]"
-                    :value="topic.name"
-                    v-on:change="loadExercises"
-                  ></v-checkbox>
-                </div>
-              </div>
-            </v-card-text>
-          </v-card>
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </div>
+      <v-card>
+        <v-card-text>
+          <label>Quizz Name</label>
+          <v-text-field
+            placeholder="Quizz name"
+            solo
+            class="search-name"
+            append-icon="search"
+            v-model="name"
+            v-on:change="loadExercises"
+          ></v-text-field>
 
+          <div class="topics">
+            <label>Quizz Topics</label>
+            <div class="container">
+              <div v-for="(topic, index) in topics" :key="topic.id">
+                <v-checkbox
+                  style="height: min-content"
+                  :label="topic.name"
+                  color="primary"
+                  v-model="checkedTopics[index]"
+                  :value="topic.name"
+                  v-on:change="loadExercises"
+                ></v-checkbox>
+              </div>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+    </div>
+    <br>
     <div class="row">
       <div v-for="quizz in quizzs" :key="quizz.id" class="col">
         <QuizzCard :quizz="quizz"/>
@@ -45,7 +53,8 @@ export default {
   data() {
     return {
       checkedTopics: [""],
-      quizzs: []
+      quizzs: [],
+      name: ""
     };
   },
   computed: {
@@ -57,7 +66,7 @@ export default {
     loadExercises() {
       const topics = this.checkedTopics.join("+");
       quizzs
-        .getByTopics(topics)
+        .getByTopics(topics || "''", this.name)
         .then(res => {
           this.quizzs = res;
         })
@@ -71,7 +80,11 @@ export default {
 .container {
   display: grid;
   grid-gap: 5px;
+  padding: 0;
   grid-template-columns: repeat(auto-fit, 120px);
   grid-template-rows: repeat(2, 30px);
+}
+.search-name {
+  width: 30%;
 }
 </style>

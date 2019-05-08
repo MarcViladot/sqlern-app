@@ -1,4 +1,5 @@
 import exercises from '../../api/exercises'
+import hints from '../../api/hints'
 
 const state = {
     set: []
@@ -10,9 +11,10 @@ const getters = {
 const actions = {
     create({ commit }, data) {
         exercises
-            .create(data)
+            .create(data.data)
             .then(res => {
-                console.log(res);
+                console.log(data.hint);
+                hints.create(res.id, data.hint);
             })
             .catch(error => console.log(error));
     },

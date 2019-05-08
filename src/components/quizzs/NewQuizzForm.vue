@@ -1,25 +1,14 @@
 <template>
   <div>
-    <v-dialog v-if="exercise" v-model="dialog" width="500">
+    <v-dialog v-if="exercise" v-model="dialog">
       <v-card class="card">
-        <div>
-          <label>
-            <b>Statement</b>
-          </label>
-          <p>{{exercise.statement}}</p>
-        </div>
-        <div>
-          <label>
-            <b>Solution</b>
-          </label>
-          <p>{{exercise.solution}}</p>
-        </div>
+        <ExerciseDisplay :exercise="exercise"/>
       </v-card>
     </v-dialog>
 
     <h3>Create Quizz</h3>
     <div class="row">
-      <v-text-field label="Quizz name" v-model="name" class="col"></v-text-field>
+      <v-text-field label="Quizz name" v-model="name" class="col" :rules="fieldRules"></v-text-field>
       <v-checkbox label="This Quizz is private" v-model="privat" class="col" color="primary"></v-checkbox>
     </div>
 
@@ -105,7 +94,12 @@
             ></v-checkbox>
           </div>
         </div>
-        <v-btn color="primary" v-on:click="createQuizz" id="create">Create Quizz</v-btn>
+        <v-btn
+          color="primary"
+          v-on:click="createQuizz"
+          id="create"
+          :disabled="!this.addedsExercices.length > 0 || !name"
+        >Create Quizz</v-btn>
       </div>
     </div>
   </div>
@@ -113,9 +107,13 @@
 
 <script>
 import exercises from "../../api/exercises";
+import ExerciseDisplay from "../exercises/ExerciseDisplay.vue";
 import { mapState } from "vuex";
 export default {
   name: "NewQuizzForm",
+  components: {
+    ExerciseDisplay
+  },
   data() {
     return {
       dialog: false,
@@ -141,7 +139,8 @@ export default {
       checkedTopics: [""],
       addedsExercices: [],
       name: "",
-      privat: false
+      privat: false,
+      fieldRules: [v => !!v || "Field is required"]
     };
   },
   computed: {

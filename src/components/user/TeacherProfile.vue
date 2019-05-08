@@ -23,8 +23,8 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog v-if="exercise" v-model="dialogExercise" width="auto"> 
-      <EditExerciseForm :exercise="exercise" />
+    <v-dialog v-if="exercise" v-model="dialogExercise" width="auto">
+      <EditExerciseForm :exercise="exercise"/>
     </v-dialog>
 
     <v-dialog v-model="dialogNewModel" width="500">
@@ -43,7 +43,7 @@
           <v-data-table :headers="headersQuizzs" :items="user.quizzs" class="elevation-1">
             <template slot="items" slot-scope="props">
               <td>
-                <span :to="'/quizzs/' + props.item.id" class="pointer">{{ props.item.name }}</span>
+                <span v-on:click="goToQuizz(props.item.id)" class="pointer">{{ props.item.name }}</span>
               </td>
               <td>{{ props.item.public }}</td>
               <td>{{ props.item.gtimes }}</td>
@@ -68,7 +68,7 @@
           <h5>My Generated Quizzs</h5>
           <v-data-table :headers="headersGQuizzs" :items="user.generatedquizzs" class="elevation-1">
             <template slot="items" slot-scope="props">
-              <td class="pointer">{{ props.item.code }}</td>
+              <td v-on:click="goToGQuizz(props.item.code)" class="pointer">{{ props.item.code }}</td>
               <td>{{ props.item.user.name }} {{ props.item.user.last_name }}</td>
               <td>{{ props.item.answers }}</td>
               <td>{{ moment(props.item.created_at).format('DD-MM-YYYY hh:mm') }}</td>
@@ -187,6 +187,12 @@ export default {
     };
   },
   methods: {
+    goToGQuizz(code) {
+      this.$router.push("/gquizzs/" + code);
+    },
+    goToQuizz(id) {
+      this.$router.push("/quizzs/" + id);
+    },
     setExercise(exercise) {
       this.dialog = true;
       this.exercise = exercise;
@@ -195,7 +201,7 @@ export default {
       this.dialogM = true;
       this.url = url;
     },
-    editExercise(exercise){
+    editExercise(exercise) {
       this.exercise = exercise;
       this.dialogExercise = true;
     },

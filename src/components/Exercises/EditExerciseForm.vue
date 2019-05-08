@@ -16,7 +16,7 @@
           <v-checkbox v-model="exercise.public" label="Public" :disabled="!edit" color="primary"></v-checkbox>
         </div>
       </v-layout>
-      <v-layout row>
+      <v-layout row class="col-lg-12">
         <v-card class="editor">
           <label>Exercise Solution</label>
           <codemirror v-model="exercise.solution" :options="cmOption"></codemirror>
@@ -131,6 +131,7 @@ export default {
 }
 .hint {
   width: 35%;
+  margin-left: 10px;
   .text {
     width: 100%;
   }

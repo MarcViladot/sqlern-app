@@ -1,13 +1,11 @@
 <template>
   <v-card class="card">
-    <h4>Exercise 1</h4>
-    <br>
     <div>
       <v-expansion-panel>
         <v-expansion-panel-content>
           <div slot="header">Conceptual Model</div>
           <v-card>
-            <img v-bind:src="exercise.conceptualmodel.url">
+            <img v-bind:src="exercise.conceptualmodel.url" class="img">
           </v-card>
         </v-expansion-panel-content>
       </v-expansion-panel>
@@ -20,7 +18,7 @@
       </p>
     </div>
     <br>
-    <div>
+    <div class="row col-lg-12">
       <v-card class="editor">
         <p>
           <v-icon small>code</v-icon>&nbsp;
@@ -46,18 +44,25 @@
           v-on:input="solutionChanged"
         ></codemirror>
       </v-card>
-      <span v-if="hint">
-        <b>Hint:</b>
-        &nbsp;
+      <span v-if="hint" class="hint">
+        <h5>Hint:</h5>
         {{exercise.comments[0].comment}}
       </span>
     </div>
     <br>
     <div v-if="!quizz">
-      <span class="float-left" v-if="correct !== undefined">
-        <span v-if="correct">correct</span>
-        <span v-else>false - {{exercise.solution}}</span>
-      </span>
+      <transition name="slide-fade">
+        <span class="float-left" v-if="correct !== undefined">
+          <div v-if="correct">
+            <h5>Correct</h5>
+            <span style="color: green">{{exercise.solution}}</span>
+          </div>
+          <div v-else>
+            <h5>Incorrect</h5>
+            <span style="color: red">{{exercise.solution}}</span>
+          </div>
+        </span>
+      </transition>
       <v-btn color="secondary" class="float-right" v-on:click="next" v-if="answered">Next</v-btn>
       <v-btn
         color="primary"
@@ -138,8 +143,23 @@ export default {
     padding-left: 10px;
     padding-right: 10px;
   }
+  margin: 0 !important;
+}
+.hint {
+  margin-left: 10px;
 }
 #hint {
   cursor: pointer;
+}
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>

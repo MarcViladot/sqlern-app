@@ -1,10 +1,10 @@
 <template>
   <div v-if="user">
     <div v-if="!isTeacher()">
-      <HomeStudent />
+      <HomeStudent/>
     </div>
     <div v-else>
-      Profe
+      <HomeTeacher/>
     </div>
   </div>
 </template>
@@ -12,8 +12,9 @@
 <script>
 import { mapState } from "vuex";
 import HomeStudent from "./user/HomeStudent.vue";
+import HomeTeacher from "./user/HomeTeacher.vue";
 export default {
-  components: { HomeStudent },
+  components: { HomeStudent, HomeTeacher },
   data() {
     return {
       exercises: []

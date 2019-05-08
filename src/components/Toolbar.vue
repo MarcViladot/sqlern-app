@@ -2,11 +2,10 @@
   <div>
     <v-toolbar dense color="primary">
       <v-toolbar-title class="headline text-uppercase">
-        <span class="font-weight-light pointer">Sqlearn</span>
+        <span class="font-weight-light pointer" v-on:click="home">Sqlearn</span>
       </v-toolbar-title>
       <span class="buttons" v-if="isTeacher()">
         <v-btn flat to="/search/quizzs">Search Quizzs</v-btn>
-        <v-btn flat to="/search/exercises">Search Exercises</v-btn>
       </span>
       <span class="buttons" v-else>
         <v-btn flat v-on:click="dialogExercises = true">Practice exercises</v-btn>
@@ -80,6 +79,9 @@ export default {
     },
     goToQuizz() {
       this.$router.push("/quizzs/test/" + this.code);
+    },
+    home() {
+      this.$router.push("/");
     }
   },
   data() {

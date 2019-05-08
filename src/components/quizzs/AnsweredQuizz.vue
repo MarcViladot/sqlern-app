@@ -2,7 +2,10 @@
   <div v-if="answeredQuizz">
     <div>
       <v-card class="card">
-        <h4>Quizz {{answeredQuizz.id}}</h4>
+        <h4>
+          Quizz X - Answered by:
+          <b>{{answeredQuizz.user.last_name}}, {{answeredQuizz.user.name}}</b>
+        </h4>
         <div>
           <p>
             <b>Number of exercises:</b>
@@ -26,9 +29,20 @@
         </div>
       </v-card>
     </div>
-    <div v-for="exercise in answeredQuizz.exercises" :key="exercise.id">
-      <AnsweredExerciseCard :exercise="exercise"/>
-    </div>
+    <v-expansion-panel>
+      <v-expansion-panel-content v-for="(exercise, index) in answeredQuizz.exercises" :key="index">
+        <div slot="header">
+          Exercise {{index+1}} -&nbsp;
+          <span
+            v-bind:style="[exercise.correct ? {color: 'green'} : {color: 'red'}]"
+          >
+            <span v-if="exercise.correct">Correct</span>
+            <span v-else>Incorrect</span>
+          </span>
+        </div>
+        <AnsweredExerciseCard :exercise="exercise"/>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
   </div>
 </template>
 
@@ -39,6 +53,12 @@ export default {
   name: "AnsweredQuizz",
   components: {
     AnsweredExerciseCard
+  },
+  props: {
+    answeredQuizz: {
+      type: Object,
+      required: false
+    }
   },
   data() {
     return {

@@ -9,7 +9,7 @@ import quizz from './modules/quizz'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
     modules: {
         user,
         exercise,
@@ -17,3 +17,5 @@ export default new Vuex.Store({
         quizz
     }
 })
+
+export default store;

@@ -14,8 +14,8 @@ export default {
                 return r.data
             })
     },
-    getByTopics(topics) {
-        return API.get('quizzs/set/' + topics)
+    getByTopics(topics, name) {
+        return API.get('quizzs/set/' + topics + '/' + name)
             .then(r => {
                 return r.data
             })

@@ -26,7 +26,7 @@ export default {
     HelloWorld,
     LoginLayout,
     Toolbar
-  },
+  }, 
   created() {
     this.$store.dispatch("topic/getAll");
     this.$store.dispatch("user/setCurrentUser");

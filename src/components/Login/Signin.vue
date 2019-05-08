@@ -14,7 +14,7 @@
       <v-alert :value="true" color="error" icon="warning" outline v-if="error">Incorrect email or password</v-alert>
     </v-form>
     <v-btn color="primary" v-on:click="login">Sign in</v-btn>
-    <span>or</span>
+    <div>or</div>
   </div>
 </template>
 

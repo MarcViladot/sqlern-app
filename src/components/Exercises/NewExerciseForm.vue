@@ -1,50 +1,70 @@
 <template>
   <div>
     <h3>Create Exercise</h3>
-    <div class="row">
-      <div class="col">
-        <v-textarea label="Exercise Statement" v-model="statement" rows="1"></v-textarea>
-      </div>
+    <v-form v-model="valid" class="fields">
+      <div class="row">
+        <div class="col">
+          <v-textarea
+            label="Exercise Statement"
+            solo
+            v-model="statement"
+            rows="1"
+            :rules="statementRules"
+            required
+          ></v-textarea>
+        </div>
 
-      <div id="conceptual" class="col">
-        <v-select
-          :items="user.conceptualmodels"
-          label="Conceptual Model"
-          v-model="model"
-          item-text="name"
-          item-value="id"
-        ></v-select>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <label>Solution</label>
-        <codemirror v-model="solution" :options="cmOption" id="codemirror"></codemirror>
-      </div>
-      <div class="col">
-        <label>Topics</label>
-        <div v-for="(topic, index) in topics" :key="topic.id" id="topics">
-          <v-checkbox
-            :label="topic.name"
-            color="primary"
-            v-model="checkedTopics[index]"
-            :value="topic.id"
-          ></v-checkbox>
+        <div class="col">
+          <v-checkbox v-model="privat" label="This exercise is private" color="primary"></v-checkbox>
         </div>
       </div>
-    </div>
 
-    <v-layout row justify-space-between id="foot">
-      <v-flex xs2>
-        <v-checkbox v-model="privat" label="This exercise is private" color="primary"></v-checkbox>
-      </v-flex>
-
-      <v-flex xs3>
-        <v-btn color="accent">Cancel</v-btn>
-        <v-btn color="primary" v-on:click="create">Create Exercise</v-btn>
-      </v-flex>
-    </v-layout>
+      <div class="row">
+        <v-card class="editor">
+          <label>Solution</label>
+          <codemirror v-model="solution" :options="cmOption" :rules="solutionRules" required></codemirror>
+        </v-card>
+        <div class="hint">
+          <v-textarea solo name="hint" class="text" label="Hint" v-model="hint"></v-textarea>
+          <v-select
+            :items="user.conceptualmodels"
+            label="Conceptual Model"
+            v-model="model"
+            item-text="name"
+            solo
+            required
+            item-value="id"
+          ></v-select>
+          <div>
+            <v-expansion-panel>
+              <v-expansion-panel-content>
+                <div slot="header">Topics</div>
+                <v-card>
+                  <v-card-text class="topics">
+                    <div class="container">
+                      <div v-for="(topic, index) in topics" :key="topic.id" id="topics">
+                        <v-checkbox
+                          :label="topic.name"
+                          color="primary"
+                          v-model="checkedTopics[index]"
+                          :value="topic.id"
+                        ></v-checkbox>
+                      </div>
+                    </div>
+                  </v-card-text>
+                </v-card>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </div>
+          <v-btn
+            color="primary"
+            v-on:click="create"
+            :disabled="!valid || !solution || !model"
+            type="submit"
+          >Create Exercise</v-btn>
+        </div>
+      </div>
+    </v-form>
   </div>
 </template>
 
@@ -60,6 +80,7 @@ export default {
       statement: "",
       privat: false,
       model: undefined,
+      hint: "",
       checkedTopics: [],
       cmOption: {
         tabSize: 3,
@@ -68,7 +89,10 @@ export default {
         line: true,
         mode: "text/x-mysql",
         theme: "base16-light"
-      }
+      },
+      valid: false,
+      statementRules: [v => !!v || "Statement is required"],
+      solutionRules: [v => !!v || "Solution is required"]
     };
   },
   computed: {
@@ -86,7 +110,7 @@ export default {
         public: !this.private,
         topics: this.checkedTopics.join("+")
       };
-      this.$store.dispatch("exercise/create", data);
+      this.$store.dispatch("exercise/create", { data, hint: this.hint });
     }
   }
 };
@@ -95,6 +119,19 @@ export default {
 <style lang="scss">
 label {
   font-size: 16px;
+}
+.editor {
+  width: 60%;
+  margin-left: 15px;
+  margin-right: 20px;
+  label {
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+.topics {
+  padding-bottom: 30px;
 }
 #foot {
   padding: 15px;

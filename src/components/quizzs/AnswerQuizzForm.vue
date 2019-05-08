@@ -36,19 +36,34 @@ export default {
   },
   methods: {
     submitQuizz() {
-      var data = [];
-      this.quizz.exercises.forEach(e => {
-        data.push({ student_solution: e.student_solution, exercise_id: e.id });
+      this.$swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#009688",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, send it!"
+      }).then(result => {
+        if (result.value) {
+          var data = [];
+          this.quizz.exercises.forEach(e => {
+            data.push({
+              student_solution: e.student_solution,
+              exercise_id: e.id
+            });
+          });
+          quizzs
+            .answerQuizz({
+              generatedquizz_id: this.gquizz.id,
+              exercises: JSON.stringify(data)
+            })
+            .then(res => {
+              this.$router.push("/quizzs/answered/" + res.id);
+            })
+            .catch(error => console.log(error.response));
+        }
       });
-      quizzs
-        .answerQuizz({
-          generatedquizz_id: this.gquizz.id,
-          exercises: JSON.stringify(data)
-        })
-        .then(res => {
-          this.$router.push("/quizzs/answered/" + res.id);
-        })
-        .catch(error => console.log(error.response));
     },
     solutionChange(data) {
       this.quizz.exercises.forEach(e => {
