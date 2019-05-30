@@ -52,7 +52,7 @@ export default {
         title: {
           display: true,
           fontSize: 20,
-          text: "Last Generated Quizz - " + this.user.last_quizz.quizz_code
+          text: "Last Generated Quiz - " + this.user.last_quizz.quizz_code
         },
         rotation: 1 * Math.PI,
         circumference: 1 * Math.PI

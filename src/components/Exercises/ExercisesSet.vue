@@ -28,6 +28,11 @@ export default {
       exercises: state => state.exercise.set
     })
   },
+  beforeUpdate() {
+    console.log(this.exercises.length == 0);
+    if (this.exercises.length == 0) {
+    }
+  },
   methods: {
     next() {
       if (this.i + 1 === this.exercises.length) {

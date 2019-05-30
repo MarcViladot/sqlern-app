@@ -19,11 +19,17 @@
         </div>
       </div>
 
-      <div class="row">
-        <v-card class="editor">
-          <label>Solution</label>
-          <codemirror v-model="solution" :options="cmOption" :rules="solutionRules" required></codemirror>
-        </v-card>
+      <div class="row col-lg-12">
+        <div class="code-editor">
+          <span class="header">
+            <v-icon small>code</v-icon>&nbsp;
+            <b>Code Editor</b>
+          </span>
+          <span class="tab"></span>
+          <div class="editor">
+            <codemirror v-model="solution" :options="cmOption" :rules="solutionRules" required></codemirror>
+          </div>
+        </div>
         <div class="hint">
           <v-textarea solo name="hint" class="text" label="Hint" v-model="hint"></v-textarea>
           <v-select
@@ -69,7 +75,7 @@
 </template>
 
 <script>
-import "codemirror/theme/base16-light.css";
+import "codemirror/theme/idea.css";
 import "codemirror/mode/sql/sql.js";
 import { mapState } from "vuex";
 import exercises from "../../api/exercises";
@@ -88,7 +94,7 @@ export default {
         lineNumbers: true,
         line: true,
         mode: "text/x-mysql",
-        theme: "base16-light"
+        theme: "idea"
       },
       valid: false,
       statementRules: [v => !!v || "Statement is required"],
@@ -117,10 +123,7 @@ export default {
 </script>
 
 <style lang="scss">
-label {
-  font-size: 16px;
-}
-.editor {
+.a {
   width: 60%;
   margin-left: 15px;
   margin-right: 20px;

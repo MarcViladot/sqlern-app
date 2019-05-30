@@ -11,7 +11,13 @@
         required
         @click:append="show = !show"
       ></v-text-field>
-      <v-alert :value="true" color="error" icon="warning" outline v-if="error">Incorrect email or password</v-alert>
+      <v-alert
+        :value="true"
+        color="error"
+        icon="warning"
+        outline
+        v-if="error"
+      >Incorrect email or password</v-alert>
     </v-form>
     <v-btn color="primary" v-on:click="login">Sign in</v-btn>
     <div>or</div>
@@ -28,6 +34,7 @@ export default {
         email: this.email,
         password: this.password
       });
+      this.$router.push("/");
     }
   },
   computed: {

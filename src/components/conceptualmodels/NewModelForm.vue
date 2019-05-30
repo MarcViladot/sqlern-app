@@ -3,7 +3,7 @@
     <h5>New Conceptual Model</h5>
     <div class="row">
       <div class="col">
-        <v-text-field label="Conceptual Model name" v-model="name"></v-text-field>
+        <v-text-field label="Conceptual Model name" v-model="name" :rules="fieldRules"></v-text-field>
       </div>
       <div class="col">
         <input
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="text-xs-right">
-      <v-btn color="primary" v-on:click="upload">Upload</v-btn>
+      <v-btn color="primary" v-on:click="upload" :disabled="!name || !fileData">Upload</v-btn>
     </div>
   </div>
 </template>
@@ -33,7 +33,8 @@ export default {
         cloudName: "dpsci3hpd"
       },
       fileData: undefined,
-      name: ""
+      name: "",
+      fieldRules: [v => !!v || "Field required"]
     };
   },
   computed: {

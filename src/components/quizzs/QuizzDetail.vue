@@ -3,7 +3,7 @@
     <div>
       <v-card class="card">
         <h4>
-          Quizz {{quizz.name}} - By
+          Quiz {{quizz.name}} - By
           <b>{{quizz.user.last_name}}, {{quizz.user.name}}</b>
         </h4>
         <div>
@@ -12,11 +12,11 @@
             {{quizz.exercises.length}}
           </div>
           <div>
-            <b>Topics:&nbsp;</b>
             <span v-for="(topic, index) in quizz.topics" :key="topic.id">
-              <span>{{topic.name}}</span>
+              <!-- <span>{{topic.name}}</span>
               <span v-if="index+1 < quizz.topics.length">,&nbsp;</span>
-              <span v-else>.</span>
+              <span v-else>.</span>-->
+              <v-chip color="indigo" style="color: white" disabled>{{topic.name}}</v-chip>
             </span>
           </div>
           <div class="float-right">
@@ -29,7 +29,7 @@
     <v-expansion-panel>
       <v-expansion-panel-content v-for="(exercise, index) in quizz.exercises" :key="index">
         <div slot="header">Exercise {{index+1}}</div>
-        <ExerciseDisplay :exercise="exercise" style="margin-left: 15px" />
+        <ExerciseDisplay :exercise="exercise" style="margin-left: 15px"/>
       </v-expansion-panel-content>
     </v-expansion-panel>
 

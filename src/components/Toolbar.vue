@@ -1,20 +1,20 @@
 <template>
   <div>
-    <v-toolbar dense color="primary">
+    <v-toolbar dense color="primary" style="color: white">
       <v-toolbar-title class="headline text-uppercase">
         <span class="font-weight-light pointer" v-on:click="home">Sqlearn</span>
       </v-toolbar-title>
       <span class="buttons" v-if="isTeacher()">
-        <v-btn flat to="/search/quizzs">Search Quizzs</v-btn>
+        <v-btn flat to="/search/quizzs" class="btn" style="color: white">Search Quizzes</v-btn>
       </span>
       <span class="buttons" v-else>
-        <v-btn flat v-on:click="dialogExercises = true">Practice exercises</v-btn>
+        <v-btn flat v-on:click="dialogExercises = true" style="color: white">Practice exercises</v-btn>
       </span>
       <v-spacer></v-spacer>
       <span v-if="!isTeacher()">
         <v-text-field
           hide-details
-          label="Join Quizz"
+          label="Join Quiz"
           append-icon="arrow_forward"
           @click:append="goToQuizz"
           solo
@@ -59,6 +59,7 @@
 import { mapState } from "vuex";
 import NewModelForm from "./conceptualmodels/NewModelForm.vue";
 import SelectionMode from "./exercises/SelectionMode.vue";
+import quizzs from "../api/quizzs";
 export default {
   name: "Toolbar",
   components: {
@@ -78,7 +79,20 @@ export default {
       this.$store.dispatch("user/logout");
     },
     goToQuizz() {
-      this.$router.push("/quizzs/test/" + this.code);
+      quizzs
+        .isAnswered(this.code)
+        .then(result => {
+          if (!result) {
+            this.$router.push("/quizzs/test/" + this.code);
+          } else {
+            this.$swal({
+              title: "Quiz already answered",
+              text: "You already answered this Quizz",
+              type: "info"
+            });
+          }
+        })
+        .catch(err => {});
     },
     home() {
       this.$router.push("/");
@@ -96,6 +110,7 @@ export default {
 
 <style lang="scss">
 #btn-menu {
+  color: white;
   &:focus {
     outline: 0 !important;
   }

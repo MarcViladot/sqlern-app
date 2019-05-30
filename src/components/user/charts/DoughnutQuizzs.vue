@@ -37,7 +37,7 @@ export default {
         title: {
           display: true,
           fontSize: 20,
-          text: "My Answered Quizzs"
+          text: "My Answered Quizzes"
         },
         rotation: 1 * Math.PI,
         circumference: 1 * Math.PI

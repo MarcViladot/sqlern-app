@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col">
         <v-card class="table-card">
-          <h5>My Answered Quizzs</h5>
+          <h5>My Answered Quizzes</h5>
           <v-data-table :headers="headersQuizzs" :items="user.quizzs" class="elevation-1">
             <template slot="items" slot-scope="props">
               <td class="pointer" v-on:click="goToQuizz(props.item.id)">{{ props.item.gquizz.code }}</td>

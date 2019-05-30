@@ -40,7 +40,7 @@ export default {
         title: {
           display: true,
           fontSize: 20,
-          text: "My Quizzs"
+          text: "My Quizzes"
         },
         legend: {
           display: false

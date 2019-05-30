@@ -72,7 +72,7 @@ const router = new VueRouter({
 })
 
 
-router.beforeResolve((to, from, next) => {
+/* router.beforeResolve((to, from, next) => {
   if (to.matched.some(record => record.meta.isTeacher)) {
     if (store.state.user.currentUser.role === 0) {
       next({
@@ -94,6 +94,6 @@ router.beforeResolve((to, from, next) => {
   } else {
     next() // make sure to always call next()!
   }
-})
+}) */
 
 export default router;

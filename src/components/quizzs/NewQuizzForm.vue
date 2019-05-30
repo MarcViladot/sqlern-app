@@ -6,7 +6,7 @@
       </v-card>
     </v-dialog>
 
-    <h3>Create Quizz</h3>
+    <h3>Create Quiz</h3>
     <div class="row">
       <v-text-field label="Quizz name" v-model="name" class="col" :rules="fieldRules"></v-text-field>
       <v-checkbox label="This Quizz is private" v-model="privat" class="col" color="primary"></v-checkbox>
@@ -60,7 +60,7 @@
 
     <div class="row">
       <div class="col">
-        <label>Quizz Exercises</label>
+        <label>Quiz Exercises</label>
         <v-data-table :headers="headersQuizz" :items="addedsExercices" class="elevation-1">
           <template slot="items" slot-scope="props">
             <td>
@@ -99,7 +99,7 @@
           v-on:click="createQuizz"
           id="create"
           :disabled="!this.addedsExercices.length > 0 || !name"
-        >Create Quizz</v-btn>
+        >Create Quiz</v-btn>
       </div>
     </div>
   </div>

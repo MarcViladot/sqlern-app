@@ -26,10 +26,11 @@ export default {
     HelloWorld,
     LoginLayout,
     Toolbar
-  }, 
+  },
   created() {
     this.$store.dispatch("topic/getAll");
     this.$store.dispatch("user/setCurrentUser");
+    this.$router.push("/")
   },
   computed: {
     ...mapState({
@@ -59,6 +60,37 @@ hr {
   h5 {
     padding-top: 10px;
     padding-left: 10px;
+  }
+}
+.code-editor {
+  width: 60%;
+  .header {
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px 0 0 0;
+    margin: 0 !important;
+  }
+  .bulb {
+    margin-left: 20px;
+    #hint {
+      cursor: pointer;
+    }
+  }
+  .tab {
+    border-left: 15px solid white;
+    position: absolute;
+    top: -7.6px;
+    content: "";
+    height: 30px;
+    width: 0;
+    border-top: 2.01666667em solid transparent;
+  }
+  .editor {
+    padding: 10px 10px 5px 10px;
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    margin: 0 !important;
   }
 }
 </style>

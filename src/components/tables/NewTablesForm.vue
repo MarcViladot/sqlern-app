@@ -1,23 +1,19 @@
 <template>
   <div>
-    <div>
-      <p>
+    <v-card class="aaa">
+      <h5>
         <b>Current tables in Database</b>
-      </p>
-      <span v-for="(table, index) in tables" :key="table">
-        <span>{{table}}</span>
-        <span v-if="index+1 < tables.length">,&nbsp;</span>
+      </h5>
+      <span v-for="(table) in tables" :key="table">
+        <v-chip color="primary" disabled style="color: white">{{table}}</v-chip>
       </span>
-    </div>
+    </v-card>
     <br>
     <div>
-      <v-card class="editor">
-        <p>SQL Creation Script</p>
-        <codemirror v-model="query" :options="cmOption"></codemirror>
-      </v-card>
+      <v-textarea solo v-model="query" rows="10" auto-grow></v-textarea>
     </div>
     <div>
-      <v-btn color="primary" class="float-right" v-on:click="createTables">Execute Script</v-btn>
+      <v-btn color="primary" v-on:click="createTables" :disabled="!query">Execute Script</v-btn>
     </div>
   </div>
 </template>
@@ -55,7 +51,7 @@ export default {
       tables
         .create(this.query)
         .then(res => {
-            alert('ok');
+          alert("ok");
         })
         .catch(error => console.log(error));
     }
@@ -64,11 +60,7 @@ export default {
 </script>
 
 <style lang="scss">
-.editor {
-  p {
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
+.aaa {
+  padding: 10px;
 }
 </style>

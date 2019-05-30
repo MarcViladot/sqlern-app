@@ -3,7 +3,7 @@
     <div>
       <v-card class="card">
         <h4>
-          Quizz X - Answered by:
+          Quiz X - Answered by:
           <b>{{answeredQuizz.user.last_name}}, {{answeredQuizz.user.name}}</b>
         </h4>
         <div>

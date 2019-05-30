@@ -18,11 +18,11 @@
       {{exercise.solution}}
     </div>
     <div class="p">
-      <h5>Topics:</h5>
       <span v-for="(topic, index) in exercise.topics" :key="topic.id">
-        <span>{{topic.name}}</span>
+        <!-- <span>{{topic.name}}</span>
         <span v-if="index+1 < exercise.topics.length">,&nbsp;</span>
-        <span v-else>.</span>
+        <span v-else>.</span> -->
+        <v-chip color="indigo" style="color: white" disabled>{{topic.name}}</v-chip>
       </span>
     </div>
   </div>

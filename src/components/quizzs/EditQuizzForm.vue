@@ -1,7 +1,7 @@
 <template>
   <div v-if="quizz">
     <v-card class="card">
-      <h4>Quizz {{quizz.id}}</h4>
+      <h4>Quiz {{quizz.id}}</h4>
       <v-layout row>
         <div id="name">
           <v-text-field label="Solo" placeholder="Statement" solo v-model="quizz.name"></v-text-field>

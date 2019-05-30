@@ -62,7 +62,6 @@ export default {
   computed:{
     ...mapState({
       topics: state => state.topic.all,
-      
     })
   }
 };

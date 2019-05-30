@@ -1,5 +1,5 @@
 <template>
-  <v-card class="card">
+  <v-card class="card" style="background-color: #EEEEF0; border-color: white;">
     <div>
       <v-expansion-panel>
         <v-expansion-panel-content>
@@ -19,31 +19,36 @@
     </div>
     <br>
     <div class="row col-lg-12">
-      <v-card class="editor">
-        <p>
+      <div class="code-editor">
+        <span class="header">
           <v-icon small>code</v-icon>&nbsp;
           <b>Code Editor</b>
-          <span class="float-right" v-if="exercise.comments.length > 0 && !quizz && !hint">
+          <span v-if="exercise.comments.length > 0 &&  !quizz && !hint" class="bulb">
             <v-tooltip bottom>
               <template #activator="data">
                 <v-icon
                   v-on="data.on"
                   slot="activator"
                   id="hint"
+                  small
                   v-on:click="hint = true"
                 >wb_incandescent</v-icon>
               </template>
               <span>Show hint</span>
             </v-tooltip>
           </span>
-        </p>
-        <codemirror
-          v-model="solution"
-          :options="cmOption"
-          id="codemirror"
-          v-on:input="solutionChanged"
-        ></codemirror>
-      </v-card>
+        </span>
+        <span class="tab"></span>
+        <div class="editor">
+          <codemirror
+            v-model="solution"
+            :options="cmOption"
+            id="codemirror"
+            v-on:input="solutionChanged"
+          ></codemirror>
+        </div>
+      </div>
+
       <span v-if="hint" class="hint">
         <h5>Hint:</h5>
         {{exercise.comments[0].comment}}
@@ -68,7 +73,7 @@
         color="primary"
         class="float-right"
         v-on:click="checkExercise"
-        :disabled="answered"
+        :disabled="answered || !solution"
       >Check</v-btn>
     </div>
   </v-card>
@@ -76,7 +81,7 @@
 
 <script>
 import exercises from "../../api/exercises";
-import "codemirror/theme/base16-light.css";
+import "codemirror/theme/idea.css";
 import "codemirror/mode/sql/sql.js";
 export default {
   name: "AnswerExerciseForm",
@@ -101,7 +106,7 @@ export default {
         lineNumbers: true,
         line: true,
         mode: "text/x-mysql",
-        theme: "base16-light"
+        theme: "idea"
       },
       solution: "",
       teacherSolution: "",
@@ -137,19 +142,8 @@ export default {
 </script>
 
 <style lang="scss">
-.editor {
-  p {
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  margin: 0 !important;
-}
 .hint {
-  margin-left: 10px;
-}
-#hint {
-  cursor: pointer;
+  margin-left: 40px;
 }
 .slide-fade-enter-active {
   transition: all 0.5s ease;

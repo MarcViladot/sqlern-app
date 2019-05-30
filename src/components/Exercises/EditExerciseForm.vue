@@ -1,56 +1,73 @@
 <template>
-  <v-card class="card">
+  <v-card class="card" style="background-color: #EEEEF0;">
     <h5>Exercise {{exercise.id}}</h5>
-    <div>
-      <v-layout row>
-        <div id="statement">
-          <v-text-field
-            label="Solo"
-            placeholder="Statement"
-            solo
-            v-model="exercise.statement"
-            :disabled="!edit"
-          ></v-text-field>
-        </div>
-        <div>
-          <v-checkbox v-model="exercise.public" label="Public" :disabled="!edit" color="primary"></v-checkbox>
-        </div>
-      </v-layout>
-      <v-layout row class="col-lg-12">
-        <v-card class="editor">
-          <label>Exercise Solution</label>
-          <codemirror v-model="exercise.solution" :options="cmOption"></codemirror>
-        </v-card>
-        <div class="hint">
-          <label>Hint</label>
-          <v-textarea
-            solo
-            name="hint"
-            class="text"
-            label="Hint"
-            v-model="hintComputed"
-            :disabled="!edit"
-            value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
-          ></v-textarea>
-          <v-select
-            :items="user.conceptualmodels"
-            solo
-            label="Conceptual Model"
-            v-model="exercise.conceptualmodel"
-            :disabled="!edit"
-            item-text="name"
-            item-value="id"
-          ></v-select>
-          <v-btn color="secondary" @click="edit = true" v-if="!edit">Edit</v-btn>
-          <v-btn color="primary" v-on:click="saveExercise" v-if="edit">Save changes</v-btn>
-        </div>
-      </v-layout>
-    </div>
+    <v-form v-model="valid" class="fields">
+      <div>
+        <v-layout row>
+          <div id="statement">
+            <v-text-field
+              label="Solo"
+              placeholder="Statement"
+              solo
+              v-model="exercise.statement"
+              :disabled="!edit"
+              :rules="statementRules"
+              required
+            ></v-text-field>
+          </div>
+          <div>
+            <v-checkbox v-model="exercise.public" label="Public" :disabled="!edit" color="primary"></v-checkbox>
+          </div>
+        </v-layout>
+        <v-layout row class="col-lg-12">
+          <div class="code-editor">
+            <span class="header">
+              <v-icon small>code</v-icon>&nbsp;
+              <b>Code Editor</b>
+            </span>
+            <span class="tab"></span>
+            <div class="editor">
+              <codemirror v-model="exercise.solution" :options="cmOption"></codemirror>
+            </div>
+          </div>
+          <div class="hint">
+            <label>Hint</label>
+            <v-textarea
+              solo
+              name="hint"
+              class="text"
+              label="Hint"
+              v-model="hintComputed"
+              :disabled="!edit"
+              value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+            ></v-textarea>
+            <v-select
+              :items="user.conceptualmodels"
+              solo
+              label="Conceptual Model"
+              v-model="exercise.conceptualmodel"
+              :disabled="!edit"
+              item-text="name"
+              required
+              item-value="id"
+            ></v-select>
+            <v-btn color="secondary" @click="edit = true" v-if="!edit">Edit</v-btn>
+            <v-btn
+              color="primary"
+              v-on:click="saveExercise"
+              v-if="edit"
+              :disabled="!valid || !exercise.solution || !exercise.conceptualmodel"
+              type="submit"
+            >Save changes</v-btn>
+          </div>
+        </v-layout>
+      </div>
+    </v-form>
   </v-card>
 </template>
 
 <script>
-import "codemirror/theme/base16-light.css";
+import "codemirror/theme/idea.css";
 import "codemirror/mode/sql/sql.js";
 import exercises from "../../api/exercises";
 import { mapState } from "vuex";
@@ -71,8 +88,11 @@ export default {
         lineNumbers: true,
         line: true,
         mode: "text/x-mysql",
-        theme: "base16-light"
-      }
+        theme: "idea"
+      },
+      valid: false,
+      statementRules: [v => !!v || "Statement is required"],
+      solutionRules: [v => !!v || "Solution is required"]
     };
   },
   methods: {

@@ -1,11 +1,11 @@
 <template>
   <div v-if="gquizz">
-    <h5>Quizz {{quizz.name}}</h5>
+    <h5>Quiz {{quizz.name}}</h5>
     <div v-for="exercise in quizz.exercises" :key="exercise.id">
       <AnswerExerciseForm :exercise="exercise" v-on:solution="solutionChange" :quizz="true"/>
     </div>
     <div>
-      <v-btn class="float-right" color="primary" v-on:click="submitQuizz">Submit Quizz</v-btn>
+      <v-btn class="float-right" color="primary" v-on:click="submitQuizz">Submit Quiz</v-btn>
     </div>
   </div>
 </template>

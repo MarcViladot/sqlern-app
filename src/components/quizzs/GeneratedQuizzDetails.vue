@@ -1,6 +1,6 @@
 <template>
   <div v-if="gquizz">
-    <h5>Quizz {{code}}</h5>
+    <h5>Quiz {{code}}</h5>
     <br>
     <div>
       <v-card class="table-card" v-if="gquizz.student_answers.length > 0">
@@ -19,7 +19,7 @@
         </v-data-table>
       </v-card>
       <div v-else>
-        No one has answered this quizz
+        No one has answered this quiz
       </div>
     </div>
     <br>

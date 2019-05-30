@@ -2,18 +2,7 @@
   <div v-if="user">
     <v-dialog v-if="exercise" v-model="dialog" width="500">
       <v-card class="dialog">
-        <div>
-          <label>
-            <b>Statement</b>
-          </label>
-          <p>{{exercise.statement}}</p>
-        </div>
-        <div>
-          <label>
-            <b>Solution:&nbsp;</b>
-          </label>
-          <p>{{exercise.solution}}</p>
-        </div>
+        <ExerciseDisplay :exercise="exercise"/>
       </v-card>
     </v-dialog>
 
@@ -36,7 +25,7 @@
     <div class="row">
       <div class="col">
         <v-card class="table-card">
-          <h5 class="float-left">My Quizzs</h5>
+          <h5 class="float-left">My Quizs</h5>
           <v-btn flat icon to="/quizzs/new" class="float-right" color="primary">
             <v-icon>add</v-icon>
           </v-btn>
@@ -65,7 +54,7 @@
 
       <div class="col">
         <v-card class="table-card">
-          <h5>My Generated Quizzs</h5>
+          <h5>My Generated Quizzes</h5>
           <v-data-table :headers="headersGQuizzs" :items="user.generatedquizzs" class="elevation-1">
             <template slot="items" slot-scope="props">
               <td v-on:click="goToGQuizz(props.item.code)" class="pointer">{{ props.item.code }}</td>
@@ -113,8 +102,7 @@
           </v-btn>
           <v-data-table :headers="headersModels" :items="user.conceptualmodels" class="elevation-1">
             <template slot="items" slot-scope="props">
-              <td>{{ props.item.name }}</td>
-              <td class="pointer" v-on:click="setModel(props.item.url)">Preview</td>
+              <td class="pointer" v-on:click="setModel(props.item.url)">{{ props.item.name }}</td>
               <td>{{ moment(props.item.created_at).format('DD-MM-YYYY hh:mm') }}</td>
               <td>
                 <v-btn flat icon v-on:click="deleteModel(props.item.id)">
@@ -138,12 +126,14 @@ import models from "../../api/models";
 import quizzs from "../../api/quizzs";
 import NewModelForm from "../conceptualmodels/NewModelForm.vue";
 import EditExerciseForm from "../exercises/EditExerciseForm.vue";
+import ExerciseDisplay from "../exercises/ExerciseDisplay.vue";
 import { mapState } from "vuex";
 export default {
   name: "TeacherProfile",
   components: {
     NewModelForm,
-    EditExerciseForm
+    EditExerciseForm,
+    ExerciseDisplay
   },
   computed: {
     ...mapState({
@@ -174,7 +164,6 @@ export default {
       ],
       headersModels: [
         { text: "Name", sortable: false },
-        { text: "Model", sortable: false },
         { text: "Created at", value: "created_at" },
         { text: "Remove", sortable: false }
       ],

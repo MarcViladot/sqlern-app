@@ -40,7 +40,7 @@ export default {
         title: {
           display: true,
           fontSize: 20,
-          text: "Generated Quizzs"
+          text: "Generated Quizzes"
         },
         tooltips: {
           callbacks: {

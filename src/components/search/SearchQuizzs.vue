@@ -3,9 +3,9 @@
     <div>
       <v-card>
         <v-card-text>
-          <label>Quizz Name</label>
+          <label>Quiz Name</label>
           <v-text-field
-            placeholder="Quizz name"
+            placeholder="Quiz name"
             solo
             class="search-name"
             append-icon="search"
@@ -14,7 +14,7 @@
           ></v-text-field>
 
           <div class="topics">
-            <label>Quizz Topics</label>
+            <label>Quiz Topics</label>
             <div class="container">
               <div v-for="(topic, index) in topics" :key="topic.id">
                 <v-checkbox

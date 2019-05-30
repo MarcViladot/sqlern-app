@@ -17,11 +17,11 @@
     </div>
 
     <div class="section">
-      <b>Topics:&nbsp;</b>
       <span v-for="(topic, index) in quizz.topics" :key="topic.id">
-        <span>{{topic.name}}</span>
+        <!-- <span>{{topic.name}}</span>
         <span v-if="index+1 < quizz.topics.length">,&nbsp;</span>
-        <span v-else>.</span>
+        <span v-else>.</span>-->
+        <v-chip color="indigo" style="color: white" small disabled>{{topic.name}}</v-chip>
       </span>
     </div>
     <div class="section">
@@ -30,7 +30,7 @@
     </div>
 
     <div class="rowd footer">
-      <div>
+      <div id="votes">
         <b>{{quizz.votes}}</b> votes
       </div>
       <div
@@ -84,6 +84,10 @@ export default {
 }
 .footer {
   font-size: 0.8em;
+  text-align: right;
+  #votes {
+    text-align: left;
+  }
   #date {
     color: #7a7a7a;
   }

@@ -46,7 +46,7 @@ export default {
         title: {
           display: true,
           fontSize: 20,
-          text: "Quizzs qualifications summary"
+          text: "Quizzes qualifications summary"
         },
         rotation: 1 * Math.PI,
         circumference: 1 * Math.PI,
@@ -58,7 +58,7 @@ export default {
             {
               scaleLabel: {
                 display: true,
-                labelString: "Quizz note"
+                labelString: "Quiz note"
               },
               gridLines: {
                 display: false
@@ -68,7 +68,7 @@ export default {
           yAxes: [
             { scaleLabel: {
                 display: true,
-                labelString: "Number of quizzs"
+                labelString: "Number of quizzes"
               },
               gridLines: {
                 display: false
