@@ -71,7 +71,7 @@ export default {
       quizzs
         .generateQuizz(this.id)
         .then(res => {
-          this.$swal(res.code, "Is your code for this Quizz", "success");
+          this.$swal(res.code, "Is your code for this Quiz", "success");
         })
         .catch(error => console.log(error.response));
     }
